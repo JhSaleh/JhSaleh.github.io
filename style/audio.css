@@ -1,0 +1,26 @@
+.gridy {
+    display: grid;
+    grid-template-columns: 1fr 1 fr;
+    grid-template-areas: "a b";
+}
+
+#button {
+    height: 100px;
+    width: 100px;
+
+    background-image:url("./resources/play.jpeg");
+    background-repeat: no-repeat;
+}
+
+/*créé un font particulier*/
+@font-face{
+    font-family: Sofia;
+    src: url("../fonts/Pacifico-Regular.ttf") format("truetype");
+}
+
+#title{
+    font-family: Sofia;
+    font-weight: bold;
+    text-align: center; /*aligne le texte au milieu*/
+    font-size: 40px; /*change la taille du texte*/
+}

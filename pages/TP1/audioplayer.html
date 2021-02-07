@@ -1,18 +1,20 @@
 <html> <!--A PUSHER SUR LE GIT-->
+    <!--
     <style type="text/css">
         #navlist{position:relative;}
         #navlist li{margin:0;padding:0;list-style:none;position:absolute;top:0;}
-        #navlist li,#navlist a{height:60px;display:block;}
+        #navlist li,#navlist a{height:0px;display:block;}
         #play1{left:0px;width:47px;}
-        #play1{background-image:url("./resources/play.jpeg"); border:black; border-width: 1px; width:100; height:100px!important; background-repeat:no-repeat; background-size:100px 100px}
+        #play1{background-image:url("./resources/play.jpeg"); border:black; border-width: 0px; width:100; height:100px!important; background-repeat:no-repeat; background-size:100px 100px}
     </style>
+    -->
 
 	<head>
+        <link rel="stylesheet" href="../../style/audio.css">
 		<script type="text/javascript">
-            
 
             function onload(){
-                var state = true
+                var state = true //Booleen vrai si en pause, faux sinon
                 var audio = document.getElementById("son1");
                 var canvas = document.getElementById("myCanvas");
 
@@ -21,21 +23,24 @@
                 
                 }
             
-            
+                
+
                 function play(){
                     if (state){
                         audio.play()
                         state = false
+                        button.src = "../../resources/pause.jpeg" //Change l'image
                     } else { //Remise a zero
                         audio.pause()
-                        audio.currentTime = 0
+                        audio.currentTime = 0 //Remet a zero l'etat du player
                         state = true
+                        button.src = "../../resources/play.png"
                     }
                     
                 }
 
-                var buttonPlay = document.getElementById("play1");
-                buttonPlay.onclick = play; //binding de l'événement onclick sur la methode play 
+                var button = document.getElementById("button");
+                button.onclick = play; //binding de l'événement onclick sur la methode play 
                 
 
                 function eventListenerProgress(){
@@ -43,22 +48,28 @@
                     var ctx = canvas.getContext("2d");
                     percent = audio.currentTime/audio.duration
                     drawArcBar(ctx, percent);
-                    //drawLineBar(ctx, percent);
+                    drawLineBar(ctx, percent);
                 }
                 audio.addEventListener("timeupdate",eventListenerProgress) //attache un listener a l'objet audio sur l'événement timeupdate
                 
                 function drawLineBar(context, percent){
                     console.log(percent);
                     clearCanvas(context)
-                    context.moveTo(0,0); //(x,y)
-                    context.lineTo(200*percent, 0);
+                    context.moveTo(0,50); //(x,y)
+                    context.lineTo(canvas.width*percent, 50);
                     context.stroke();
+                    
+                    //Reinitialise le button apres lecture de la piste
+                    if(percent >= 0.99){
+                        button.src = "../../resources/play.png";
+                        state = true
+                    }
                     //console.log((audio.currentTime/audio.duration));
                 }
 
                 function drawArcBar(context, percent){
                     clearCanvas(context)
-                    context.arc(50, 50, 30, 0, percent*2*Math.PI, false);
+                    context.arc(50, 50, 10, 0, percent*2*Math.PI, false);
                     context.stroke()
                 }
 
@@ -70,13 +81,15 @@
 		</script>
 	</head>
 	 
-	<body onload='onload()'>
-        <audio id = "son1" src="resources/cracklingFire.wav"></audio>
-        <canvas id="myCanvas" width="200" height="200"></canvas>
-		<ul id="navlist">
-			<li id="play1">
-        </ul>
-        
+	<body onload='onload()' >
+        <audio id = "son1" src="../../resources/cracklingFire.wav"></audio>
+        <div>
+            <p id="title">Audio Player Beta</p>
+        </div>
+        <span>
+            <canvas id="myCanvas" width="300" height="100"></canvas>
+            <img src="../../resources/play.png" alt = "playButton" id = "button">
+        </span>
 	</body>
 	
 </html>

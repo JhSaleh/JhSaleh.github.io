@@ -1,0 +1,63 @@
+<html> <!--A PUSHER SUR LE GIT-->
+   
+	<head>
+        <link rel="stylesheet" href="style.css">
+		    <script type="text/javascript">
+
+            function onload(){
+                
+                
+                var state = true
+                
+                var timer = setInterval(function modifyTimerText(){ //timer correspond à l'id du timer généré au moment de l'appel de setInterval
+                  let a = parseInt(document.getElementById("timer").innerHTML);
+                  a = a - 1;
+                  document.getElementById("timer").innerHTML = a;
+                  if(a == 0){
+                    clearInterval(timer);
+                  }
+                }
+                 , 1000);
+                
+
+
+                /*
+                function eventListenerProgress(){
+                    //console.log("progress")
+                    var ctx = canvas.getContext("2d");
+                    percent = audio.currentTime/audio.duration
+                    drawArcBar(ctx, percent);
+                    drawLineBar(ctx, percent);
+                }
+                audio.addEventListener("timeupdate",eventListenerProgress) //attache un listener a l'objet audio sur l'événement timeupdate
+                
+                function drawLineBar(context, percent){
+                    console.log(percent);
+                    clearCanvas(context)
+                    context.moveTo(0,0); //(x,y)
+                    context.lineTo(200*percent, 0);
+                    context.stroke();
+                    //console.log((audio.currentTime/audio.duration));
+                }
+
+                function drawArcBar(context, percent){
+                    clearCanvas(context)
+                    context.arc(50, 50, 10, 0, percent*2*Math.PI, false);
+                    context.stroke()
+                }
+                */
+                function clearCanvas(context){
+                    context.clearRect(0,0, canvas.width, canvas.height); //nettoie le canevas
+                    context.beginPath(); //nettoie la pile de traits stockés dans le contexte
+                }
+            }
+		</script>
+	</head>
+	 
+	<body onload='onload()'>
+          <article id = "timer">
+            10
+          </article>
+	</body>
+	
+</html>

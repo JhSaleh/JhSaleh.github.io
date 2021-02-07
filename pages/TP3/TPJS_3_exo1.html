@@ -1,0 +1,37 @@
+<html>
+	<head>     
+    <script type="text/javascript">        
+        var table;
+
+        function init(){
+            function reqListener(){
+                table = JSON.parse(this.responseText);
+            }
+
+            for(i = 0; i < table.length; i++){
+                console.log(table[i])
+            }
+            
+            var oReq = new XMLHttpRequest();
+            oReq.addEventListener("load", reqListener);
+            oReq.open("GET", "https://cat-fact.herokuapp.com/facts");
+            oReq.send();
+        }
+      
+
+        /*
+        GET : récupère information
+        POST : creer données
+        PUT : modifier données
+        DELETE : supprimer données
+        */
+
+		</script>
+	</head>
+	 
+	<body onload='init()'>
+      <canvas id="myCanvas" width="600" height="600"></canvas>
+      
+  </body>
+	
+</html>

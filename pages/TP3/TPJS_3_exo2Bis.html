@@ -1,0 +1,15 @@
+<html>
+	<head>     
+    <script type="text/javascript">        
+        async function initAsync(){            
+            res = await fetch('https://cat-fact.herokuapp.com/facts');     
+            json = await res.json();  
+            console.log(json);          
+        }
+		</script>
+	</head>
+	 
+	<body onload="initAsync()">
+      <canvas id="myCanvas" width="600" height="600"></canvas>
+    </body>
+</html>

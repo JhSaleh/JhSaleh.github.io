@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -130,6 +130,8 @@ aside li {
 
 footer {
   margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
 header {
@@ -144,3 +146,4 @@ header {
   height: 100px;
   background-color: cornflowerblue;
 }
+

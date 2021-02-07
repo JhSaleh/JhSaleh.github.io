@@ -1,0 +1,25 @@
+.box1{
+    grid-area: b1;    /*Nom qui particularise la boite*/
+}
+
+.box2{
+    grid-area: b2;    
+}
+
+.box3{
+    grid-area: b3;    
+}
+
+.inline { /*il est necessaire d'avoir une classe supérieur qui range les conteneurs*/
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+    "b1 b2 b3";
+}
+
+.titreC{
+    text-align: center;
+    font-size: 15;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

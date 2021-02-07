@@ -1,0 +1,18 @@
+<html>
+	<head>     
+    <script type="text/javascript">        
+        
+        function init(){
+            fetch('https://cat-fact.herokuapp.com/facts')
+            .then(response => response.json()) //callback de succès
+            .then(data => console.log(data)); //callback de succès
+        }
+		</script>
+	</head>
+	 
+	<body onload='init()'>
+      <canvas id="myCanvas" width="600" height="600"></canvas>
+      
+  </body>
+	
+</html>

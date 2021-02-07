@@ -1,0 +1,134 @@
+<html>
+	<head>     
+    <script type="text/javascript">        
+        class Carre{
+          constructor(canvas, x, y, speed, size, color){
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+            this.color = color;
+            this.size = size;
+            this.canvas = canvas;
+            this.context2d = this.canvas.getContext('2d');
+            this.context2d.fillStyle = this.color;
+          }
+
+
+            
+            update = function(time){
+              this.x = this.x + this.speed*time;
+            }
+            
+            draw = function(){
+              this.context2d.beginPath();
+              this.context2d.rect(this.x, this.y, this.size, this.size);
+              this.context2d.fillStyle = this.color;
+              this.context2d.fill();
+            }
+            
+            clear = function(context){
+              this.context2d.clearRect(this.x, this.y, this.size, this.size); //nettoie le canevas
+            }
+          
+      }
+      
+      var canvas;
+      var ctx;
+
+      function onload(){
+        
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        
+        //Extension du script actuelle
+        
+        /*
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "./js/carre.js";
+        head.append(script);
+        */
+        
+        /*
+        ctx.fillStyle = "black";
+        ctx.fillRect(0,0,600,600);
+        */
+
+        var limitCanvas = canvas.width;
+        var position = 0; //Position selon l'axe des X
+        var tailleCarre = 50;
+        var stop = false;
+        var nbPas = 0;
+
+        const rouge = new Carre(canvas, 0, 150, 1, tailleCarre, "#FF0000");
+        const vert = new Carre(canvas, 0, 300, 1, tailleCarre, "#00FF00");
+        const bleu = new Carre(canvas, 0, 0, 1, tailleCarre, "#0000FF");
+
+        
+        function animate(){
+          ctx.beginPath(); //nettoie la pile de traits stockés dans le contexte, a faire 1 fois
+
+          bleu.clear(ctx);
+          rouge.clear(ctx);
+          vert.clear(ctx);
+          
+          
+          if(bleu.x < (limitCanvas - 2*bleu.size)){
+            bleu.update(nbPas);
+          }
+          
+          if(nbPas > 1000 && (rouge.x < (limitCanvas - 2*rouge.size))){
+            rouge.update(nbPas-1000);
+          }
+
+          if(nbPas > 4000 && (vert.x < (limitCanvas - 2*vert.size))){
+            vert.update(nbPas-4000);
+          }
+          
+          rouge.draw(ctx);
+          vert.draw(ctx);
+          
+          bleu.draw(ctx);
+
+          console.log("pass")
+          nbPas++;               
+        }
+
+        console.log("Draw blue")
+        bleu.draw();
+        console.log(bleu)
+        console.log("Draw red")
+        rouge.draw();
+        console.log(rouge)
+        console.log("Draw green")
+        vert.draw();
+        console.log(vert)
+
+        var timer = setInterval(animate, 1);
+        
+
+        /* 
+        function drawSquare(context){
+          context.rect(position, 0, tailleCarre, tailleCarre);
+          context.fillStyle = "#FF0000";
+          position = position + 1;
+          context.fill();
+        }
+
+        function clearCanvas(context){
+          context.clearRect(0,0, canvas.width, canvas.height); //nettoie le canevas
+          context.beginPath(); //nettoie la pile de traits stockés dans le contexte
+        }
+        */
+
+      }
+		</script>
+	</head>
+	 
+	<body onload='onload()'>
+      <canvas id="myCanvas" width="600" height="600"></canvas>
+      
+  </body>
+	
+</html>

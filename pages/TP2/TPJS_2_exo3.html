@@ -1,0 +1,63 @@
+<html> <!--A PUSHER SUR LE GIT-->
+   
+	<head>
+		    <script type="text/javascript">
+
+            function onload(){
+              var canvas = document.getElementById("myCanvas");
+              var position = 0; //Position selon l'axe des X
+              var tailleCarre = 50;
+              var ctx = canvas.getContext("2d");
+              var stop = false;
+              var limitCanvas = canvas.width;
+              var nbPas = 0;
+              var nbSc = 2000; //nb de sc de délais avant le lancement du carré
+
+              function moveSquare(){ //timer correspond à l'id du timer généré au moment de l'appel de setInterval                
+                clearCanvas(ctx);
+                drawSquare(ctx);
+                if(position >= limitCanvas - tailleCarre*2){
+                  clearInterval(timer);
+                }
+              }
+
+              //Version avec un compteur
+              /*
+              var timerDelay = setInterval(function(){ //Timer servant de delais, une fois que le timer atteint la fin, il spawn un nouveau timer puis se termine
+                nbPas++;
+                if(nbPas > nbSc){
+                  var timer = setInterval(moveSquare, 10);
+                  clearInterval(timerDelay);  
+                }                
+              }, 1)
+              */
+              
+              //Version sans compteur
+              setTimeout(function(){ //Delais de 2s
+                var timer = setInterval(moveSquare, 10);
+              }, 2000);
+              
+              
+              function drawSquare(context){
+                context.rect(position, 0, tailleCarre, tailleCarre);
+                context.fillStyle = "#FF0000";
+                position = position + 1;
+                context.fill();
+              }
+
+              function clearCanvas(context){
+                context.clearRect(0,0, canvas.width, canvas.height); //nettoie le canevas
+                context.beginPath(); //nettoie la pile de traits stockés dans le contexte
+              }
+
+              delayLaunch(2); 
+            }
+		</script>
+	</head>
+	 
+	<body onload='onload()'>
+      <canvas id="myCanvas" width="600" height="600"></canvas>
+      
+  </body>
+	
+</html>
