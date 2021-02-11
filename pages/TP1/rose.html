@@ -1,0 +1,116 @@
+<html> <!--A PUSHER SUR LE GIT-->
+    <!--
+    <style type="text/css">
+        #navlist{position:relative;}
+        #navlist li{margin:0;padding:0;list-style:none;position:absolute;top:0;}
+        #navlist li,#navlist a{height:0px;display:block;}
+        #play1{left:0px;width:47px;}
+        #play1{background-image:url("./resources/play.jpeg"); border:black; border-width: 0px; width:100; height:100px!important; background-repeat:no-repeat; background-size:100px 100px}
+    </style>
+    -->
+
+	<head>
+        <link rel="stylesheet" href="../../style/audio.css">
+		<script type="text/javascript">
+            
+            function onload(){
+                var state = true //Booleen vrai si en pause, faux sinon
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                var timeInBetween = 0;
+                var colorStyle = ["#FF0000", "#0000FF", "#FF00FF", "#000000"]
+                var turn = 0;
+                var timeFraction = 500
+
+                function play(){
+                    if (state){
+                        clearCanvas(ctx)
+                        state = false
+                        button.src = "../../resources/pause.jpeg" //Change l'image
+                        carre(ctx, 4, 0, canvas.height, canvas.height/1.1);
+
+                    } else { //Remise a zero
+                        state = true
+                        button.src = "../../resources/play.png"
+                        clearCanvas(ctx);
+                    }
+                    
+                }
+
+                var button = document.getElementById("button");
+                button.onclick = play; //binding de l'événement onclick sur la methode play 
+                
+                
+                function carre(context, n, x, y, h){
+                    //clearCanvas(context)
+                    if(n > 0){
+                        setTimeout(drawLine, timeInBetween,context, x, y, x + h/2, y)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x + h/2, y, x + h/4, y-h/4)
+                        addTime()
+                        setTimeout(carre, timeInBetween, context, n-1, x+h/4, y-h/4, h/2)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x+h/4, y-h/4, x, y-h/2)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x, y-h/2, x+h/2, y-h)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x+h/2, y-h, x+h, y-h/2)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x+h, y-h/2, x+h/2, y)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x+h/2, y, x+h, y)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x+h, y, x+h, y-h)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x+h, y-h, x, y-h)
+                        addTime()
+                        setTimeout(drawLine, timeInBetween, context, x, y-h, x, y)
+                            
+                    }
+                    //console.log((audio.currentTime/audio.duration));
+                }
+               
+                function drawLine(context, x1, y1, x2, y2){
+                    
+                    if(turn == colorStyle.length){
+                        turn = 0;
+                    } else {
+                        turn++;
+                    }
+                    context.strokeStyle = colorStyle[turn]
+                    
+                    
+                    context.beginPath() //créé des entités séparement
+                    context.moveTo(x1, y1)
+                    context.lineTo(x2, y2)
+                    context.stroke()
+                    context.closePath() //délimite l'entité
+                    // a effacer une fois que tous a été tracer
+                }
+
+               function addTime(){
+                timeInBetween += timeFraction
+               }
+
+                function clearCanvas(context){
+                    context.clearRect(0,0, canvas.width, canvas.height); //nettoie le canevas
+                    context.beginPath(); //nettoie la pile de traits stockés dans le contexte
+                    context.closePath()
+                }
+
+                
+            }
+		</script>
+	</head>
+	 
+	<body onload='onload()' >
+        <div>
+            <p id="title">Exo 3</p>
+        </div>
+        <span class = "roseGridy">
+            <canvas id="myCanvas" width="800" height="800" class = "b1"></canvas>
+            <img src="../../resources/play.png" alt = "playButton" id = "button" class="b2">
+        </span>
+	</body>
+	
+</html>

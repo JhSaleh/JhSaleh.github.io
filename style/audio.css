@@ -24,3 +24,17 @@
     text-align: center; /*aligne le texte au milieu*/
     font-size: 40px; /*change la taille du texte*/
 }
+
+.roseGridy {
+    display: grid;
+    grid-area: 1fr 1fr;
+    grid-template-areas: "b1 b2";
+}
+
+.b1{
+    grid-area: b1;    
+}
+
+.b2{
+    grid-area: b2;    
+}
