@@ -21,18 +21,29 @@
                 var colorStyle = ["#FF0000", "#0000FF", "#FF00FF", "#000000"]
                 var turn = 0;
                 var timeFraction = 500
+                var timeSetOutList = []
 
                 function play(){
                     if (state){
                         clearCanvas(ctx)
                         state = false
+                        turn = 0
+                        timeInBetween = 0;
+                        
                         button.src = "../../resources/pause.jpeg" //Change l'image
                         carre(ctx, 4, 0, canvas.height, canvas.height/1.1);
 
                     } else { //Remise a zero
                         state = true
                         button.src = "../../resources/play.png"
+                        //Supprimer les alarmes
+                        for(var i = 0; i <= timeSetOutList.length; i++){
+                            clearTimeout(timeSetOutList[i])
+                        }
+                        //Vide la liste
+                        timeSetOutList = []
                         clearCanvas(ctx);
+                        
                     }
                     
                 }
@@ -44,30 +55,29 @@
                 function carre(context, n, x, y, h){
                     //clearCanvas(context)
                     if(n > 0){
-                        setTimeout(drawLine, timeInBetween,context, x, y, x + h/2, y)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween,context, x, y, x + h/2, y))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x + h/2, y, x + h/4, y-h/4)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x + h/2, y, x + h/4, y-h/4))
                         addTime()
-                        setTimeout(carre, timeInBetween, context, n-1, x+h/4, y-h/4, h/2)
+                        timeSetOutList.push(setTimeout(carre, timeInBetween, context, n-1, x+h/4, y-h/4, h/2))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x+h/4, y-h/4, x, y-h/2)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x+h/4, y-h/4, x, y-h/2))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x, y-h/2, x+h/2, y-h)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x, y-h/2, x+h/2, y-h))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x+h/2, y-h, x+h, y-h/2)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x+h/2, y-h, x+h, y-h/2))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x+h, y-h/2, x+h/2, y)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x+h, y-h/2, x+h/2, y))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x+h/2, y, x+h, y)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x+h/2, y, x+h, y))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x+h, y, x+h, y-h)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x+h, y, x+h, y-h))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x+h, y-h, x, y-h)
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x+h, y-h, x, y-h))
                         addTime()
-                        setTimeout(drawLine, timeInBetween, context, x, y-h, x, y)
-                            
+                        timeSetOutList.push(setTimeout(drawLine, timeInBetween, context, x, y-h, x, y))   
                     }
-                    //console.log((audio.currentTime/audio.duration));
+                    console.log(timeSetOutList);
                 }
                
                 function drawLine(context, x1, y1, x2, y2){
