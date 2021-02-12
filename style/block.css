@@ -10,11 +10,15 @@
     grid-area: b3;    
 }
 
+.box4{
+    grid-area: b4;
+}
+
 .inline { /*il est necessaire d'avoir une classe supérieur qui range les conteneurs*/
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: 
-    "b1 b2 b3";
+    "b1 b2 b3 b4";
 }
 
 .titreC{
